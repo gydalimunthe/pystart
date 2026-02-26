@@ -1,7 +1,11 @@
 import os
-from groq import Groq
 
-def _get_client() -> Groq:
+def _get_client():
+    try:
+        from groq import Groq
+    except ImportError as exc:
+        raise RuntimeError("groq package is not installed") from exc
+
     api_key = os.environ.get("GROQ_API_KEY")
     if not api_key:
         raise RuntimeError("GROQ_API_KEY is not set")
