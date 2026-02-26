@@ -1,5 +1,7 @@
 from groq_connector import get_groq_response
 from fastapi import FastAPI
+from dotenv import load_dotenv
+load_dotenv()
 
 app = FastAPI()
 
