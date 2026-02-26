@@ -1,9 +1,14 @@
 import os
 from groq import Groq
 
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+def _get_client() -> Groq:
+    api_key = os.environ.get("GROQ_API_KEY")
+    if not api_key:
+        raise RuntimeError("GROQ_API_KEY is not set")
+    return Groq(api_key=api_key)
 
 def get_groq_response(user_input):
+    client = _get_client()
     completion = client.chat.completions.create(
         model="openai/gpt-oss-120b",
         messages=[

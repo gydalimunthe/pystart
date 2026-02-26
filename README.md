@@ -56,3 +56,26 @@ If the pop-up dissapear before you can click on it, you can click on the "PORTS"
 
 After you enable the port to be access via your browser, you will see your browser open to the application. You can now use the URL the browser points to for your API access.
 ![](./docs/images/running-browser.png?raw=true)
+
+# Render Deployment Smoke Test
+After deployment, replace `<YOUR_RENDER_URL>` with your Render service URL and run:
+
+```bash
+curl -sS https://<YOUR_RENDER_URL>/
+```
+
+Expected response:
+
+```json
+{"status":"ok"}
+```
+
+Then test chat:
+
+```bash
+curl -sS -X POST https://<YOUR_RENDER_URL>/chat \
+  -H "Content-Type: application/json" \
+  -d '{"prompt":"Say hello in one sentence."}'
+```
+
+If `GROQ_API_KEY` is missing in Render environment variables, `/chat` will return an error explaining that the key is not set.
